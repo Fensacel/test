@@ -10,16 +10,11 @@
 </head>
 
 <body class="bg-neutral-secondary-soft">
-    {{-- Memanggil komponen header/navbar. Asumsi header memiliki fixed position. --}}
     @include('layout.header')
-
-    {{-- Konten Utama Form Buat Kategori (mt-20 untuk menghindari fixed navbar) --}}
     <div class="container mx-auto mt-20 max-w-screen-md p-4">
 
         <h1 class="text-3xl font-bold text-heading mb-6">Manajemen Data Kategori</h1>
         <h3 class="text-xl font-semibold text-body mb-4">Buat Kategori Baru</h3>
-
-        {{-- Kartu Form --}}
         <div class="bg-white shadow-lg rounded-xl border border-default p-6">
 
             <form action="{{ route('kategori.store') }}" method="POST">
@@ -35,18 +30,15 @@
                         required>
                     {{-- Opsional: Menampilkan error validation jika ada --}}
                     @error('nama_kategori')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="flex space-x-3 mt-6">
-                    {{-- Tombol Simpan --}}
                     <button type="submit"
                         class="bg-brand text-white border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-sm font-medium rounded-base text-sm px-4 py-2.5 transition duration-150 ease-in-out">
                         Simpan
                     </button>
-
-                    {{-- Tombol Kembali --}}
                     <a href="{{ route('kategori.index') }}"
                         class="bg-neutral-secondary text-heading border border-default hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-secondary-soft shadow-sm font-medium rounded-base text-sm px-4 py-2.5 focus:outline-none transition duration-150 ease-in-out">
                         Batal
@@ -55,12 +47,8 @@
             </form>
 
         </div>
-        {{-- End Kartu Form --}}
 
     </div>
-    {{-- End Konten Utama --}}
-
-    {{-- Memanggil komponen footer --}}
     @include('layout.footer')
 </body>
 

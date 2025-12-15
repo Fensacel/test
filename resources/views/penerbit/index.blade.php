@@ -10,24 +10,18 @@
 </head>
 
 <body class="bg-neutral-secondary-soft">
-    {{-- Memanggil komponen header/navbar. Asumsi header memiliki fixed position. --}}
     @include('layout.header')
-
-    {{-- Konten Utama Daftar Penerbit (mt-20 untuk menghindari fixed navbar) --}}
     <div class="container mx-auto mt-20 max-w-screen-lg p-4">
 
         <h1 class="text-3xl font-bold text-heading mb-6">Manajemen Data Penerbit</h1>
         <h3 class="text-xl font-semibold text-body mb-4">Daftar Penerbit</h3>
 
         <div class="mb-6">
-            {{-- Tombol Tambah --}}
             <a href="{{ route('penerbit.create') }}"
                 class="bg-brand text-white border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-sm font-medium rounded-base text-sm px-4 py-2.5 focus:outline-none transition duration-150 ease-in-out">
                 Tambah Penerbit Baru
             </a>
         </div>
-
-        {{-- Table Penerbit (Menggunakan Styling Tailwind CSS) --}}
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg border border-default">
             <table id="data-table-penerbit" class="w-full text-sm text-left text-body">
                 <thead class="text-xs text-heading uppercase bg-neutral-tertiary">
@@ -72,12 +66,7 @@
                 </tbody>
             </table>
         </div>
-        {{-- End Table Penerbit --}}
-
     </div>
-    {{-- End Konten Utama --}}
-
-    {{-- Memanggil komponen footer --}}
     @include('layout.footer')
 </body>
 

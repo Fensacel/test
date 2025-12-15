@@ -10,10 +10,9 @@
 </head>
 
 <body class="bg-neutral-secondary-soft">
-    {{-- Memanggil komponen header/navbar. --}}
+
     @include('layout.header')
 
-    {{-- Konten Utama. mt-20 untuk menghindari fixed navbar. --}}
     <div class="container mx-auto mt-20 max-w-screen-xl p-4">
 
         <h1 class="text-3xl font-bold text-heading mb-6">Manajemen Data Kategori</h1>
@@ -25,8 +24,6 @@
                 Tambah Kategori Baru
             </a>
         </div>
-
-        {{-- Table Kategori (Menggunakan Styling Tailwind CSS untuk Tampilan Profesional) --}}
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg border border-default">
             <table id="data-table" class="w-full text-sm text-left text-body">
                 <thead class="text-xs text-heading uppercase bg-neutral-tertiary">
@@ -72,12 +69,7 @@
                 </tbody>
             </table>
         </div>
-        {{-- End Table Kategori --}}
-
     </div>
-    {{-- End Container --}}
-
-    {{-- Memanggil komponen footer --}}
     @include('layout.footer')
 </body>
 

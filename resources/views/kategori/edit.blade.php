@@ -10,16 +10,12 @@
 </head>
 
 <body class="bg-neutral-secondary-soft">
-    {{-- Memanggil komponen header/navbar. Asumsi header memiliki fixed position. --}}
     @include('layout.header')
-
-    {{-- Konten Utama Form Edit Kategori (mt-20 untuk menghindari fixed navbar) --}}
     <div class="container mx-auto mt-20 max-w-screen-md p-4">
 
         <h1 class="text-3xl font-bold text-heading mb-6">Manajemen Data Kategori</h1>
         <h3 class="text-xl font-semibold text-body mb-4">Edit Kategori</h3>
 
-        {{-- Kartu Form --}}
         <div class="bg-white shadow-lg rounded-xl border border-default p-6">
 
             <form action="{{ route('kategori.update', $kategori->id) }}" method="POST">
@@ -36,7 +32,7 @@
                         required>
                     {{-- Opsional: Menampilkan error validation jika ada --}}
                     @error('nama_kategori')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -54,15 +50,8 @@
                     </a>
                 </div>
             </form>
-
         </div>
-        {{-- End Kartu Form --}}
-
-    </div>
-    {{-- End Konten Utama --}}
-
-    {{-- Memanggil komponen footer --}}
-    @include('layout.footer')
+        @include('layout.footer')
 </body>
 
 </html>
