@@ -33,6 +33,30 @@
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="mb-4">
+                    <label for="alamat_penerbit" class="block text-sm font-medium text-heading mb-1">
+                        Alamat Penerbit
+                    </label>
+                    <input type="text" name="alamat" id="alamat"
+                        value="{{ old('alamat', $penerbit->alamat) }}"
+                        class="w-full px-3 py-2 border border-default rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-medium"
+                        required>
+                    @error('alamat')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="telepon_penerbit" class="block text-sm font-medium text-heading mb-1">
+                        Nomor Telepon Penerbit
+                    </label>
+                    <input type="text" name="telepon" id="telepon"
+                        value="{{ old('telepon', $penerbit->telepon) }}"
+                        class="w-full px-3 py-2 border border-default rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-medium"
+                        required>
+                    @error('telepon')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
                 <div class="flex space-x-3 mt-6">
                     <button type="submit"

@@ -25,6 +25,16 @@
                         <td class="py-3 font-medium text-heading w-[2px]">:</td>
                         <td class="py-3">{{ $penerbit->nama_penerbit }}</td>
                     </tr>
+                    <tr class="border-b border-default">
+                        <td class="py-3 font-medium text-heading w-1/3">Alamat Penerbit</td>
+                        <td class="py-3 font-medium text-heading w-[2px]">:</td>
+                        <td class="py-3">{{ $penerbit->alamat }}</td>
+                    </tr>
+                    <tr class="border-b border-default">
+                        <td class="py-3 font-medium text-heading w-1/3"> Nomor Telepon Penerbit</td>
+                        <td class="py-3 font-medium text-heading w-[2px]">:</td>
+                        <td class="py-3">{{ $penerbit->telepon }}</td>
+                    </tr>
                 </tbody>
             </table>
             <div class="mt-6 flex space-x-3">

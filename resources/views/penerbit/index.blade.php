@@ -28,6 +28,8 @@
                     <tr>
                         <th scope="col" class="px-6 py-3 w-[10%]">No</th>
                         <th scope="col" class="px-6 py-3 w-[55%]">Nama Penerbit</th>
+                        <th scope="col" class="px-6 py-3 w-[55%]">Alamat Penerbit</th>
+                        <th scope="col" class="px-6 py-3 w-[55%]">Telepon Penerbit</th>
                         <th scope="col" class="px-6 py-3 text-center w-[35%]">Aksi</th>
                     </tr>
                 </thead>
@@ -37,6 +39,8 @@
                     <tr class="bg-neutral-primary border-b hover:bg-neutral-secondary-soft">
                         <td class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $key + 1 }}</td>
                         <td class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $r->nama_penerbit }}</td>
+                        <td class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $r->alamat }}</td>
+                        <td class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $r->telepon }}</td>
                         <td class="px-6 py-4 text-center">
                             {{-- Container Aksi --}}
                             <div class="flex justify-center space-x-2">

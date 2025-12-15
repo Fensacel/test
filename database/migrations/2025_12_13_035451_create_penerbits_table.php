@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('penerbits', function (Blueprint $table) {
             $table->id();
             $table->string('nama_penerbit');
+            $table->string('alamat');
+            $table->string('telepon');
             $table->timestamps();
         });
     }

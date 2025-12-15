@@ -32,6 +32,8 @@ class PenerbitController extends Controller
         //buat validasi
         $validatedData = $request->validate([
             'nama_penerbit' => 'required|max:100',
+            'alamat' => 'required|max:255',
+            'telepon' => 'required|max:15',
         ]);
         //simpan ke database
         penerbit::create($validatedData);
