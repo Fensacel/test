@@ -11,7 +11,7 @@
 
 <body class="bg-neutral-secondary-soft">
     @include('layout.header')
-    <div class="container mx-auto mt-20 max-w-screen-md p-4">
+    <div class="container mx-auto mt-20 max-w-3xl p-4">
 
         <h1 class="text-3xl font-bold text-heading mb-6">Manajemen Data Penerbit</h1>
         <h3 class="text-xl font-semibold text-body mb-4">Detail Penerbit</h3>
@@ -22,17 +22,17 @@
                 <tbody>
                     <tr class="border-b border-default">
                         <td class="py-3 font-medium text-heading w-1/3">Nama Penerbit</td>
-                        <td class="py-3 font-medium text-heading w-[2px]">:</td>
+                        <td class="py-3 font-medium text-heading w-0.5">:</td>
                         <td class="py-3">{{ $penerbit->nama_penerbit }}</td>
                     </tr>
                     <tr class="border-b border-default">
                         <td class="py-3 font-medium text-heading w-1/3">Alamat Penerbit</td>
-                        <td class="py-3 font-medium text-heading w-[2px]">:</td>
+                        <td class="py-3 font-medium text-heading w-0.5">:</td>
                         <td class="py-3">{{ $penerbit->alamat }}</td>
                     </tr>
                     <tr class="border-b border-default">
                         <td class="py-3 font-medium text-heading w-1/3"> Nomor Telepon Penerbit</td>
-                        <td class="py-3 font-medium text-heading w-[2px]">:</td>
+                        <td class="py-3 font-medium text-heading w-0.5">:</td>
                         <td class="py-3">{{ $penerbit->telepon }}</td>
                     </tr>
                 </tbody>
