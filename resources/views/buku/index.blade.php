@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen Buku | Daftar Buku</title>
+    <link rel="icon" href="{{ asset('image/Archie.svg') }}" type="image/x-icon">
     @vite('resources/css/app.css')
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -20,7 +21,7 @@
         
         <main class="min-h-screen mt-14 p-4">
 
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">Manajemen Data Buku</h1>
