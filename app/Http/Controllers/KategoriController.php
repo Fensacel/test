@@ -11,11 +11,14 @@ class KategoriController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $allKategori = Kategori::all();
-        return view('kategori.index', compact('allKategori'));
-    }
+{
+    // 1. Ambil data dari database
+    $allkategori = Kategori::all(); 
 
+    // 2. Kirim variabel ke view menggunakan compact()
+    // Nama di dalam string compact harus sama dengan nama variabel (tanpa $)
+    return view('kategori.index', compact('allkategori'));
+}
     /**
      * Show the form for creating a new resource.
      */

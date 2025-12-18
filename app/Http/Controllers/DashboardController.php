@@ -10,13 +10,25 @@ use App\Models\Penerbit;
 class DashboardController extends Controller
 {
     public function index()
-    {
-        $totalBuku = Buku::count();
-        $totalKategori = Kategori::count();
-        $totalPenerbit = Penerbit::count();
+{
+    // 1. Data Statistik (Yang sudah ada)
+    $totalBuku = Buku::count();
+    $totalKategori = Kategori::count();
+    $totalPenerbit = Penerbit::count();
+    $bukuTerbaru = Buku::latest()->take(5)->get();
 
-        $bukuTerbaru = Buku::latest()->take(5)->get();
+    // 2. TAMBAHAN PENTING: Data untuk Dropdown di Modal
+    // Tanpa ini, form 'Tambah Buku' di modal bakal error "Undefined variable"
+    $allkategori = Kategori::all(); 
+    $allpenerbit = Penerbit::all();
 
-        return view('dashboard', compact('totalBuku', 'totalKategori', 'totalPenerbit', 'bukuTerbaru'));
-    }
+    return view('dashboard', compact(
+        'totalBuku', 
+        'totalKategori', 
+        'totalPenerbit', 
+        'bukuTerbaru',
+        'allkategori', // <-- Kirim ini
+        'allpenerbit'  // <-- Kirim ini
+    ));
+}
 }

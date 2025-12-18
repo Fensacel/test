@@ -1,80 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
+<div id="crud-modal" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Manajemen Buku | Buat Penerbit Baru</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    @vite('resources/css/app.css')
-</head>
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white border border-default rounded-base shadow-sm p-4 md:p-6 text-left">
 
-<body class="bg-neutral-secondary-soft">
-    @include('layout.header')
-    <div class="container mx-auto mt-20 max-w-screen-md p-4">
-
-        <h1 class="text-3xl font-bold text-heading mb-6">Manajemen Data Penerbit</h1>
-        <h3 class="text-xl font-semibold text-body mb-4">Buat Penerbit Baru</h3>
-
-        <div class="bg-white shadow-lg rounded-xl border border-default p-6">
+            <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
+                <h3 class="text-lg font-medium text-heading">
+                    Buat Penerbit Baru
+                </h3>
+                <button type="button" class="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center" data-modal-hide="crud-modal">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
 
             <form action="{{ route('penerbit.store') }}" method="POST">
                 @csrf
+                <div class="grid gap-4 grid-cols-2 py-4 md:py-6">
 
-                <div class="mb-4">
-                    <label for="nama_penerbit" class="block text-sm font-medium text-heading mb-1">
-                        Nama Penerbit
-                    </label>
-                    <input type="text" name="nama_penerbit" id="nama_penerbit"
-                        value="{{ old('nama_penerbit') }}"
-                        class="w-full px-3 py-2 border border-default rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-medium"
-                        required>
-                    @error('nama_penerbit')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="alamat_penerbit" class="block text-sm font-medium text-heading mb-1">
-                        Alamat Penerbit
-                    </label>
-                    <input type="text" name="alamat" id="alamat"
-                        value="{{ old('alamat') }}"
-                        class="w-full px-3 py-2 border border-default rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-medium"
-                        required>
-                    @error('alamat')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="telepon_penerbit" class="block text-sm font-medium text-heading mb-1">
-                        Nomor Telepon Penerbit
-                    </label>
-                    <input type="text" name="telepon" id="telepon"
-                        value="{{ old('telepon') }}"
-                        class="w-full px-3 py-2 border border-default rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-medium"
-                        required>
-                    @error('telepon')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
+                    <div class="col-span-2">
+                        <label for="nama_penerbit" class="block mb-2.5 text-sm font-medium text-heading">Nama Penerbit</label>
+                        <input type="text" name="nama_penerbit" id="nama_penerbit"
+                            value="{{ old('nama_penerbit') }}"
+                            class="bg-gray-50 border border-gray-300 text-heading text-sm rounded-lg focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-sm"
+                            placeholder="Masukkan nama penerbit" required>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="telepon" class="block mb-2.5 text-sm font-medium text-heading">Nomor Telepon</label>
+                        <input type="text" name="telepon" id="telepon"
+                            value="{{ old('telepon') }}"
+                            class="bg-gray-50 border border-gray-300 text-heading text-sm rounded-lg focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-sm"
+                            placeholder="0812..." required>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="alamat" class="block mb-2.5 text-sm font-medium text-heading">Alamat Penerbit</label>
+                        <textarea id="alamat" name="alamat" rows="4"
+                            class="block bg-gray-50 border border-gray-300 text-heading text-sm rounded-lg focus:ring-brand focus:border-brand w-full p-3.5 shadow-sm"
+                            placeholder="Tulis alamat lengkap disini" required>{{ old('alamat') }}</textarea>
+                    </div>
+
                 </div>
 
-                <div class="flex space-x-3 mt-6">
-
-                    <button type="submit"
-                        class="bg-brand text-white border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-sm font-medium rounded-base text-sm px-4 py-2.5 transition duration-150 ease-in-out">
+                <div class="flex items-center space-x-4 border-t border-default pt-4 md:pt-6">
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         Simpan
                     </button>
-                    <a href="{{ route('penerbit.index') }}"
-                        class="bg-neutral-secondary text-heading border border-default hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-secondary-soft shadow-sm font-medium rounded-base text-sm px-4 py-2.5 focus:outline-none transition duration-150 ease-in-out">
+                    <button data-modal-hide="crud-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
                         Batal
-                    </a>
+                    </button>
                 </div>
+
             </form>
-
         </div>
-
     </div>
-    @include('layout.footer')
-</body>
-
-</html>
+</div>

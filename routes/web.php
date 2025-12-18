@@ -11,4 +11,4 @@ Route::get('/', function () {
 Route::resource('kategori', App\Http\Controllers\KategoriController::class);
 Route::resource('penerbit', App\Http\Controllers\PenerbitController::class);
 Route::resource('buku', App\Http\Controllers\BukuController::class);
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

@@ -14,9 +14,15 @@ class BukuController extends Controller
      */
     public function index()
     {
-        // Eager load relasi kategori & penerbit supaya tidak N+1
-        $allbuku = Buku::with(['penerbit', 'kategori'])->get();
-        return view('buku.index', compact('allbuku'));
+        // 1. Ambil Data Buku (biasanya sudah ada)
+        $allbuku = Buku::all();
+        
+        // 2. TAMBAHAN WAJIB: Ambil data Penerbit & Kategori untuk Dropdown Modal
+        $penerbit = Penerbit::all();
+        $kategori = Kategori::all();
+
+        // 3. Kirim ketiga variabel tersebut ke View
+        return view('buku.index', compact('allbuku', 'penerbit', 'kategori'));
     }
 
     /**

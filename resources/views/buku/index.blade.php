@@ -19,10 +19,10 @@
         <h3 class="text-xl font-semibold text-body mb-4">Daftar Buku</h3>
 
         <div class="mb-6">
-            <a href="{{ route('buku.create') }}"
+            <button type="button" data-modal-target="create-buku-modal" data-modal-toggle="create-buku-modal"
                 class="bg-brand text-white border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-sm font-medium rounded-base text-sm px-4 py-2.5 focus:outline-none transition duration-150 ease-in-out">
                 Tambah Buku Baru
-            </a>
+            </button>
         </div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg border border-default">
@@ -51,19 +51,24 @@
 
                         <td class="px-6 py-4 text-center">
                             <div class="flex justify-center space-x-2">
-                                <a href="{{ route('buku.show', $r->id) }}"
+                                
+                                <button type="button" 
+                                    data-modal-target="show-buku-modal-{{ $r->id }}" 
+                                    data-modal-toggle="show-buku-modal-{{ $r->id }}"
                                     class="text-xs text-blue-600 hover:text-blue-800 font-semibold py-1 px-2 border border-blue-500 rounded-lg transition duration-150 ease-in-out">
                                     Detail
-                                </a>
-                                <a href="{{ route('buku.edit', $r->id) }}"
+                                </button>
+
+                                <button type="button" 
+                                    data-modal-target="edit-buku-modal-{{ $r->id }}" 
+                                    data-modal-toggle="edit-buku-modal-{{ $r->id }}"
                                     class="text-xs text-green-600 hover:text-green-800 font-semibold py-1 px-2 border border-green-500 rounded-lg transition duration-150 ease-in-out">
                                     Edit
-                                </a>
+                                </button>
 
                                 <form action="{{ route('buku.destroy', $r->id) }}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
-
                                     <button type="submit"
                                         class="text-xs text-red-600 hover:text-red-800 font-semibold py-1 px-2 border border-red-500 rounded-lg transition duration-150 ease-in-out"
                                         onclick="return confirm('Yakin ingin menghapus buku: {{ $r->judul_buku }}?')">
@@ -71,6 +76,8 @@
                                     </button>
                                 </form>
                             </div>
+                            @include('buku.edit')
+                            @include('buku.show')
                         </td>
                     </tr>
                     @endforeach
@@ -79,7 +86,11 @@
         </div>
 
     </div>
+    @include('buku.create')
+
     @include('layout.footer')
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 
 </html>
