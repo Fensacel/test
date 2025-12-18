@@ -10,11 +10,22 @@ class PenerbitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $allpenerbit = penerbit::all();
-        return view('penerbit.index', compact('allpenerbit'));
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+
+    $query = Penerbit::query();
+
+    if ($search) {
+        $query->where('nama_penerbit', 'LIKE', "%{$search}%")
+              ->orWhere('alamat', 'LIKE', "%{$search}%")
+              ->orWhere('telepon', 'LIKE', "%{$search}%");
     }
+
+    $allpenerbit = $query->latest()->get();
+
+    return view('penerbit.index', compact('allpenerbit'));
+}
 
     /**
      * Show the form for creating a new resource.

@@ -12,16 +12,29 @@ class BukuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        // 1. Ambil Data Buku (biasanya sudah ada)
-        $allbuku = Buku::all();
-        
-        // 2. TAMBAHAN WAJIB: Ambil data Penerbit & Kategori untuk Dropdown Modal
+        // 1. Logika Search (yang sudah kita buat sebelumnya)
+        $search = $request->input('search');
+
+        $query = Buku::with(['penerbit', 'kategori']);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('judul_buku', 'LIKE', "%{$search}%")
+                    ->orWhere('pengarang', 'LIKE', "%{$search}%")
+                    ->orWhere('tahun_terbit', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $allbuku = $query->latest()->get();
+
+        // 2. TAMBAHKAN INI: Ambil data master untuk Dropdown di Modal Create/Edit
         $penerbit = Penerbit::all();
         $kategori = Kategori::all();
 
-        // 3. Kirim ketiga variabel tersebut ke View
+        // 3. Kirim semua variabel ke view (allbuku, penerbit, kategori)
         return view('buku.index', compact('allbuku', 'penerbit', 'kategori'));
     }
 

@@ -10,15 +10,20 @@ class KategoriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-{
-    // 1. Ambil data dari database
-    $allkategori = Kategori::all(); 
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
 
-    // 2. Kirim variabel ke view menggunakan compact()
-    // Nama di dalam string compact harus sama dengan nama variabel (tanpa $)
-    return view('kategori.index', compact('allkategori'));
-}
+        $query = Kategori::query();
+
+        if ($search) {
+            $query->where('nama_kategori', 'LIKE', "%{$search}%");
+        }
+
+        $allkategori = $query->latest()->get();
+
+        return view('kategori.index', compact('allkategori'));
+    }
     /**
      * Show the form for creating a new resource.
      */
