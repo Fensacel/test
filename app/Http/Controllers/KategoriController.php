@@ -41,8 +41,10 @@ class KategoriController extends Controller
         $validatedData = $request->validate([
             'nama_kategori' => 'required|max:100',
         ]);
-        //simpan ke database
         Kategori::create($validatedData);
+        if ($request->input('redirect_to') == 'dashboard') {
+        return redirect('/')->with('success', 'Kategori berhasil ditambahkan dari Dashboard!');
+    }
         //redirect ke halaman index dengan pesan sukses
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
     }

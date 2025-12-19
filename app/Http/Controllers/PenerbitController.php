@@ -48,6 +48,9 @@ class PenerbitController extends Controller
         ]);
         //simpan ke database
         penerbit::create($validatedData);
+        if ($request->input('redirect_to') == 'dashboard') {
+        return redirect('/')->with('success', 'Penerbit berhasil ditambahkan dari Dashboard!');
+    }
         //redirect ke halaman index dengan pesan sukses
         return redirect()->route('penerbit.index')->with('success', 'penerbit berhasil ditambahkan.');
     }
