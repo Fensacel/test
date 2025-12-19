@@ -12,23 +12,23 @@ class BukuController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-
         $query = Buku::with(['penerbit', 'kategori']);
-        $bukuTerbaru = Buku::with(['penerbit', 'kategori'])
-                        ->latest()
-                        ->take(5)
-                        ->get();
 
         if ($search) {
-            $query->where(function ($q) use ($search) {
+            $query->where(function($q) use ($search) {
                 $q->where('judul_buku', 'LIKE', "%{$search}%")
-                    ->orWhere('pengarang', 'LIKE', "%{$search}%")
-                    ->orWhere('tahun_terbit', 'LIKE', "%{$search}%");
+                  ->orWhere('pengarang', 'LIKE', "%{$search}%")
+                  ->orWhere('tahun_terbit', 'LIKE', "%{$search}%")
+                  ->orWhereHas('penerbit', function($p) use ($search) {
+                      $p->where('nama_penerbit', 'LIKE', "%{$search}%");
+                  })
+                  ->orWhereHas('kategori', function($k) use ($search) {
+                      $k->where('nama_kategori', 'LIKE', "%{$search}%");
+                  });
             });
         }
 
         $allbuku = $query->latest()->get();
-
         $penerbit = Penerbit::all();
         $kategori = Kategori::all();
 

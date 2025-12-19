@@ -68,7 +68,7 @@
                             @forelse ($allpenerbit as $key => $r)
                             <tr class="hover:bg-gray-50 transition duration-150">
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $key + 1 }}</td>
-                                <td class="px-6 py-4 font-medium text-gray-900 font-bold">
+                                <td class="px-6 py-4 font-bold text-gray-900">
                                     {{ $r->nama_penerbit }}
                                 </td>
                                 <td class="px-6 py-4 truncate max-w-xs text-gray-500" title="{{ $r->alamat }}">
@@ -107,7 +107,6 @@
                                         </form>
                                     </div>
 
-                                    {{-- INCLUDE MODAL EDIT & SHOW --}}
                                     @include('penerbit.edit')
                                     @include('penerbit.show')
                                 </td>
@@ -131,11 +130,10 @@
             </div>
         </main>
 
-        {{-- INCLUDE MODAL CREATE --}}
         @include('penerbit.create')
-
         @include('layout.footer')
         
-    </div> <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 </html>

@@ -39,7 +39,7 @@
                             </div>
                             <input type="search" name="search" value="{{ request('search') }}" 
                                 class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500" 
-                                placeholder="Cari judul, pengarang..." />
+                                placeholder="Cari Buku" />
                         </div>
                     </form>
 
