@@ -4,14 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Buku | Daftar Buku</title>
+    <title>Manajemen Buku | Toko Buku</title>
     <link rel="icon" href="{{ asset('image/Archie.svg') }}" type="image/x-icon">
     @vite('resources/css/app.css')
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
 
@@ -26,8 +24,8 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
 
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Manajemen Data Buku</h1>
-                    <p class="text-gray-500 mt-1">Kelola daftar buku, pengarang, dan stok perpustakaan.</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Inventaris Toko Buku</h1>
+                    <p class="text-gray-500 mt-1">Kelola stok buku, harga, dan katalog produk.</p>
                 </div>
 
                 <div class="flex flex-col md:flex-row gap-3 w-full md:w-auto">
@@ -41,7 +39,7 @@
                             </div>
                             <input type="search" name="search" value="{{ request('search') }}"
                                 class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Cari Buku" />
+                                placeholder="Cari Judul / SKU..." />
                         </div>
                     </form>
 
@@ -50,7 +48,7 @@
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
-                        Tambah Buku
+                        Tambah Stok Buku
                     </button>
                 </div>
             </div>
@@ -61,12 +59,10 @@
                         <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b border-gray-100">
                             <tr>
                                 <th scope="col" class="px-6 py-4 font-semibold w-[5%]">No</th>
-                                <th scope="col" class="px-6 py-4 font-semibold w-[25%]">Judul Buku</th>
-                                <th scope="col" class="px-6 py-4 font-semibold w-[15%]">Pengarang</th>
-                                <th scope="col" class="px-6 py-4 font-semibold w-[15%]">Penerbit</th>
+                                <th scope="col" class="px-6 py-4 font-semibold w-[25%]">Info Buku</th>
                                 <th scope="col" class="px-6 py-4 font-semibold w-[15%]">Kategori</th>
-                                <th scope="col" class="px-6 py-4 font-semibold w-[10%]">Tahun</th>
-                                <th scope="col" class="px-6 py-4 font-semibold text-center w-[15%]">Aksi</th>
+                                <th scope="col" class="px-6 py-4 font-semibold w-[15%]">Penerbit</th>
+                                <th scope="col" class="px-6 py-4 font-semibold w-[10%]">Stok</th> <th scope="col" class="px-6 py-4 font-semibold text-center w-[15%]">Aksi</th>
                             </tr>
                         </thead>
 
@@ -74,19 +70,45 @@
                             @forelse ($allbuku as $key => $r)
                             <tr class="hover:bg-gray-50 transition duration-150">
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $key + 1 }}</td>
-                                <td class="px-6 py-4 font-medium text-gray-900">{{ $r->judul_buku }}</td>
-                                <td class="px-6 py-4">{{ $r->pengarang }}</td>
+                                
+                                {{-- Kolom Info Buku Digabung (Judul + Pengarang) --}}
                                 <td class="px-6 py-4">
-                                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
-                                        {{ $r->penerbit?->nama_penerbit ?? '-' }}
-                                    </span>
+                                    <div class="font-bold text-gray-900 text-base">{{ $r->judul_buku }}</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">Penulis: {{ $r->pengarang }}</div>
+                                    <div class="text-xs text-gray-400">Tahun: {{ $r->tahun_terbit }}</div>
                                 </td>
+
                                 <td class="px-6 py-4">
                                     <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">
                                         {{ $r->kategori?->nama_kategori ?? '-' }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4">{{ $r->tahun_terbit }}</td>
+
+                                <td class="px-6 py-4">
+                                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
+                                        {{ $r->penerbit?->nama_penerbit ?? '-' }}
+                                    </span>
+                                </td>
+
+                                {{-- KOLOM STOK --}}
+                                <td class="px-6 py-4">
+                                    @if($r->stok > 10)
+                                        <div class="flex items-center">
+                                            <span class="w-2.5 h-2.5 bg-green-500 rounded-full mr-2"></span>
+                                            <span class="font-medium text-gray-900">{{ $r->stok }} Pcs</span>
+                                        </div>
+                                    @elseif($r->stok > 0)
+                                        <div class="flex items-center">
+                                            <span class="w-2.5 h-2.5 bg-yellow-400 rounded-full mr-2 animate-pulse"></span>
+                                            <span class="font-medium text-yellow-700">{{ $r->stok }} Pcs (Tipis)</span>
+                                        </div>
+                                    @else
+                                        <div class="flex items-center">
+                                            <span class="w-2.5 h-2.5 bg-red-500 rounded-full mr-2"></span>
+                                            <span class="font-medium text-red-600">Habis</span>
+                                        </div>
+                                    @endif
+                                </td>
 
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex justify-center items-center gap-2">
@@ -108,35 +130,32 @@
                                             </svg>
                                         </button>
 
-                                        <form action="{{ route('buku.destroy', $r->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus buku: {{ $r->judul_buku }}?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button"
-                                                data-modal-target="delete-modal-{{ $r->id }}"
-                                                data-modal-toggle="delete-modal-{{ $r->id }}"
-                                                class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition" title="Hapus">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                </svg>
-                                            </button>
-                                        </form>
+                                        {{-- Tombol Hapus (Trigger Modal Component) --}}
+                                        <button type="button" 
+                                            data-modal-target="delete-modal-{{ $r->id }}" 
+                                            data-modal-toggle="delete-modal-{{ $r->id }}"
+                                            class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition" title="Hapus">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        </button>
                                     </div>
 
                                     @include('buku.edit')
+                                    
+                                    {{-- Component Modal Hapus --}}
                                     @include('components.delete-modal', [
-                                    'id' => $r->id,
-                                    'action' => route('buku.destroy', $r->id)
+                                        'id' => $r->id,
+                                        'action' => route('buku.destroy', $r->id)
                                     ])
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-8 text-center text-gray-400">
+                                <td colspan="6" class="px-6 py-8 text-center text-gray-400">
                                     <div class="flex flex-col items-center">
                                         <svg class="w-12 h-12 mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                         </svg>
-                                        <p class="mb-1">Tidak ada data ditemukan.</p>
+                                        <p class="mb-1">Stok buku kosong / Data tidak ditemukan.</p>
                                         @if(request('search'))
                                         <p class="text-xs text-gray-400">Untuk kata kunci "{{ request('search') }}"</p>
                                         @endif
@@ -151,12 +170,91 @@
 
         </main>
 
-        @include('buku.create')
-
         @include('layout.footer')
 
     </div>
+
+    <div id="create-buku-modal" tabindex="-1" aria-hidden="true" 
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black/50 backdrop-blur-sm transition-all">
+        <div class="relative p-4 w-full max-w-2xl max-h-full mx-auto mt-10">
+            <div class="relative bg-white border border-gray-100 rounded-xl shadow-2xl p-6 md:p-8 text-left">
+                <div class="flex items-center justify-between border-b border-gray-100 pb-5 mb-5">
+                    <h3 class="text-xl font-bold text-gray-800">Tambah Stok Buku Baru</h3>
+                    <button type="button" onclick="closeModal('create-buku-modal')" class="text-gray-400 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center transition">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <form action="{{ route('buku.store') }}" method="POST">
+                    @csrf
+                    
+                    <div class="grid gap-6 grid-cols-2 mb-6">
+                        <div class="col-span-2">
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Judul Buku</label>
+                            <input type="text" name="judul_buku" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Contoh: Harry Potter" required>
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Pengarang</label>
+                            <input type="text" name="pengarang" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nama Penulis" required>
+                        </div>
+                        
+                        <div class="col-span-2 sm:col-span-1">
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Tahun Terbit</label>
+                            <input type="number" name="tahun_terbit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="2024" required>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Jumlah Stok</label>
+                            <input type="number" name="stok" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="0" min="0" required>
+                        </div>
+
+                        <div class="col-span-2 sm:col-span-1">
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Penerbit</label>
+                            <select name="penerbit_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <option value="" disabled selected>Pilih Penerbit</option>
+                                @foreach ($penerbit as $p)
+                                    <option value="{{ $p->id }}">{{ $p->nama_penerbit }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Kategori</label>
+                            <select name="kategori_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <option value="" disabled selected>Pilih Kategori</option>
+                                @foreach ($kategori as $k)
+                                    <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
+                        <button type="button" onclick="closeModal('create-buku-modal')" class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none transition">Batal</button>
+                        <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition shadow-lg shadow-blue-500/30">Simpan Produk</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script>
+        // Fungsi Manual untuk Buka/Tutup Modal (Jika data-attributes flowbite tidak respon di dynamic content)
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
 </body>
 
 </html>

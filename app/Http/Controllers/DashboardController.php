@@ -10,22 +10,29 @@ use App\Models\Penerbit;
 class DashboardController extends Controller
 {
     public function index()
-    {
-        $totalBuku = Buku::count();
-        $totalKategori = Kategori::count();
-        $totalPenerbit = Penerbit::count();
-        $bukuTerbaru = Buku::latest()->take(5)->get();
+{
+    $totalBuku = Buku::count();
+    $totalKategori = Kategori::count();
+    $totalPenerbit = Penerbit::count();
 
-        $allkategori = Kategori::all(); 
-        $allpenerbit = Penerbit::all();
+    // Ambil 5 buku terbaru
+    $bukuTerbaru = Buku::with(['penerbit', 'kategori'])->latest()->take(5)->get();
 
-        return view('dashboard', compact(
-            'totalBuku', 
-            'totalKategori', 
-            'totalPenerbit', 
-            'bukuTerbaru',
-            'allkategori',
-            'allpenerbit'
-        ));
-    }
+    // AMBIL DATA UNTUK MODAL
+    $allpenerbit = Penerbit::all();
+    $allkategori = Kategori::all();
+
+    // TAMBAHAN: Ambil buku yang stoknya kurang dari 5 (Stok Menipis)
+    $stokMenipis = Buku::where('stok', '<', 5)->orderBy('stok', 'asc')->take(5)->get();
+
+    return view('dashboard', compact(
+        'totalBuku', 
+        'totalKategori', 
+        'totalPenerbit', 
+        'bukuTerbaru', 
+        'allpenerbit', 
+        'allkategori',
+        'stokMenipis' // <-- Kirim variabel ini
+    ));
+}
 }

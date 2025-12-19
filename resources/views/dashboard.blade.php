@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Archie</title>
+    <title>Dashboard | Toko Buku</title>
     @vite('resources/css/app.css')
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
@@ -24,7 +24,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
-                    <p class="text-gray-500 mt-1">Selamat datang kembali, berikut ringkasan data perpustakaan.</p>
+                    <p class="text-gray-500 mt-1">Ringkasan inventaris dan aktivitas toko buku.</p>
                 </div>
                 <div class="text-sm text-gray-500 bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-100">
                     {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
@@ -32,32 +32,35 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 transition hover:shadow-md">
+                {{-- Total Buku --}}
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition">
                     <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 font-medium">Total Buku</p>
+                        <p class="text-sm text-gray-500 font-medium">Total Produk</p>
                         <p class="text-3xl font-bold text-gray-900">{{ $totalBuku }}</p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 transition hover:shadow-md">
+                {{-- Total Kategori --}}
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition">
                     <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 font-medium">Total Kategori</p>
+                        <p class="text-sm text-gray-500 font-medium">Kategori</p>
                         <p class="text-3xl font-bold text-gray-900">{{ $totalKategori }}</p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 transition hover:shadow-md">
+                {{-- Total Penerbit --}}
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition">
                     <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 font-medium">Total Penerbit</p>
+                        <p class="text-sm text-gray-500 font-medium">Penerbit</p>
                         <p class="text-3xl font-bold text-gray-900">{{ $totalPenerbit }}</p>
                     </div>
                 </div>
@@ -65,7 +68,7 @@
 
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-10">
                 
-                <div class="xl:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full">
+                <div class="xl:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
                     <div class="p-6 border-b border-gray-100 flex justify-between items-center">
                         <h2 class="text-lg font-bold text-gray-900">📚 Buku Terbaru</h2>
                         <a href="{{ route('buku.index') }}" class="text-sm text-blue-600 hover:text-blue-700 font-medium">Lihat Semua &rarr;</a>
@@ -75,7 +78,7 @@
                             <thead class="bg-gray-50 text-xs uppercase text-gray-500 font-semibold">
                                 <tr>
                                     <th class="px-6 py-4">Judul Buku</th>
-                                    <th class="px-6 py-4 hidden sm:table-cell">Pengarang</th>
+                                    <th class="px-6 py-4">Stok</th>
                                     <th class="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
@@ -84,14 +87,29 @@
                                 <tr class="hover:bg-gray-50 transition">
                                     <td class="px-6 py-4">
                                         <div class="font-medium text-gray-900">{{ $buku->judul_buku }}</div>
-                                        <div class="text-xs text-gray-400 sm:hidden">{{ $buku->pengarang }}</div>
+                                        <div class="text-xs text-gray-400">{{ $buku->pengarang }}</div>
                                     </td>
-                                    <td class="px-6 py-4 hidden sm:table-cell">
-                                        {{ $buku->pengarang }}
+                                    
+                                    {{-- Kolom Stok dengan Indikator Warna --}}
+                                    <td class="px-6 py-4">
+                                        @if($buku->stok > 10)
+                                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full border border-green-200">
+                                                {{ $buku->stok }} Tersedia
+                                            </span>
+                                        @elseif($buku->stok > 0)
+                                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full border border-yellow-200 animate-pulse">
+                                                {{ $buku->stok }} Menipis
+                                            </span>
+                                        @else
+                                            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full border border-red-200">
+                                                Habis
+                                            </span>
+                                        @endif
                                     </td>
+
                                     <td class="px-6 py-4 text-right">
                                         <button onclick="openModal('show-buku-dash-{{ $buku->id }}')" 
-                                            class="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-medium hover:bg-blue-100 transition cursor-pointer">
+                                            class="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-medium hover:bg-gray-200 transition cursor-pointer">
                                             Detail
                                         </button>
 
@@ -105,30 +123,22 @@
                                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                                         </button>
                                                     </div>
-                                                    <div class="space-y-4">
-                                                        <div>
-                                                            <label class="text-xs font-semibold text-gray-500 uppercase">Judul Buku</label>
-                                                            <p class="text-gray-900 font-medium">{{ $buku->judul_buku }}</p>
+                                                    <div class="space-y-3 text-sm">
+                                                        <div><span class="font-semibold text-gray-500 block">Judul:</span> {{ $buku->judul_buku }}</div>
+                                                        <div><span class="font-semibold text-gray-500 block">Pengarang:</span> {{ $buku->pengarang }}</div>
+                                                        <div><span class="font-semibold text-gray-500 block">Tahun:</span> {{ $buku->tahun_terbit }}</div>
+                                                        <div><span class="font-semibold text-gray-500 block">Stok:</span> 
+                                                            <span class="font-bold {{ $buku->stok > 0 ? 'text-gray-900' : 'text-red-600' }}">{{ $buku->stok }} Pcs</span>
                                                         </div>
-                                                        <div>
-                                                            <label class="text-xs font-semibold text-gray-500 uppercase">Pengarang</label>
-                                                            <p class="text-gray-900">{{ $buku->pengarang }}</p>
-                                                        </div>
-                                                        <div class="grid grid-cols-2 gap-4">
-                                                            <div>
-                                                                <label class="text-xs font-semibold text-gray-500 uppercase">Tahun</label>
-                                                                <p class="text-gray-900">{{ $buku->tahun_terbit }}</p>
+                                                        <div class="grid grid-cols-2 gap-2 mt-2">
+                                                            <div class="bg-gray-50 p-2 rounded border border-gray-200 text-center">
+                                                                <span class="text-xs text-gray-400 block uppercase">Penerbit</span>
+                                                                <span class="font-medium">{{ $buku->penerbit->nama_penerbit ?? '-' }}</span>
                                                             </div>
-                                                            <div>
-                                                                <label class="text-xs font-semibold text-gray-500 uppercase">Kategori</label>
-                                                                <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">
-                                                                    {{ $buku->kategori->nama_kategori ?? '-' }}
-                                                                </span>
+                                                            <div class="bg-gray-50 p-2 rounded border border-gray-200 text-center">
+                                                                <span class="text-xs text-gray-400 block uppercase">Kategori</span>
+                                                                <span class="font-medium">{{ $buku->kategori->nama_kategori ?? '-' }}</span>
                                                             </div>
-                                                        </div>
-                                                        <div>
-                                                            <label class="text-xs font-semibold text-gray-500 uppercase">Penerbit</label>
-                                                            <p class="text-gray-900">{{ $buku->penerbit->nama_penerbit ?? '-' }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="mt-6 flex justify-end">
@@ -149,49 +159,74 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-1 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full flex flex-col">
-                    <h2 class="text-lg font-bold text-gray-900 mb-4">⚡ Akses Cepat</h2>
-                    <div class="space-y-4">
-                        
-                        <button onclick="openModal('create-buku-modal')" class="w-full group flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition cursor-pointer text-left">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-900">Tambah Buku</p>
-                                    <p class="text-xs text-gray-500">Input data buku baru</p>
-                                </div>
+                <div class="lg:col-span-1 flex flex-col gap-6 h-full">
+                    
+                    {{-- ⚠️ WIDGET INFO STOK MENIPIS --}}
+                    @if(isset($stokMenipis) && count($stokMenipis) > 0)
+                    <div class="bg-white rounded-2xl shadow-sm border border-red-100 overflow-hidden">
+                        <div class="p-4 bg-red-50 border-b border-red-100 flex items-center gap-3">
+                            <div class="p-2 bg-red-100 text-red-600 rounded-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                             </div>
-                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
+                            <h3 class="font-bold text-red-800">Stok Menipis!</h3>
+                        </div>
+                        <div class="p-4">
+                            <ul class="space-y-3">
+                                @foreach($stokMenipis as $item)
+                                <li class="flex justify-between items-center text-sm border-b border-gray-50 pb-2 last:border-0 last:pb-0">
+                                    <span class="text-gray-700 truncate max-w-37.5" title="{{ $item->judul_buku }}">{{ $item->judul_buku }}</span>
+                                    <span class="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-bold">{{ $item->stok }} left</span>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    @endif
 
-                        <button onclick="openModal('create-kategori-modal')" class="w-full group flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-amber-500 hover:bg-amber-50 transition cursor-pointer text-left">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 grow">
+                        <h2 class="text-lg font-bold text-gray-900 mb-4">⚡ Akses Cepat</h2>
+                        <div class="space-y-3">
+                            
+                            <button onclick="openModal('create-buku-modal')" class="w-full group flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition cursor-pointer text-left">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-gray-900">Tambah Buku</p>
+                                        <p class="text-xs text-gray-500">Stok & Data Baru</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p class="font-semibold text-gray-900">Tambah Kategori</p>
-                                    <p class="text-xs text-gray-500">Kelola kategori buku</p>
-                                </div>
-                            </div>
-                            <svg class="w-5 h-5 text-gray-400 group-hover:text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
+                                <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
 
-                        <button onclick="openModal('create-penerbit-modal')" class="w-full group flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-emerald-500 hover:bg-emerald-50 transition cursor-pointer text-left">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            <button onclick="openModal('create-kategori-modal')" class="w-full group flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-amber-500 hover:bg-amber-50 transition cursor-pointer text-left">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-gray-900">Tambah Kategori</p>
+                                        <p class="text-xs text-gray-500">Kelola kategori</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p class="font-semibold text-gray-900">Tambah Penerbit</p>
-                                    <p class="text-xs text-gray-500">Data penerbit baru</p>
-                                </div>
-                            </div>
-                            <svg class="w-5 h-5 text-gray-400 group-hover:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
+                                <svg class="w-5 h-5 text-gray-400 group-hover:text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
 
+                            <button onclick="openModal('create-penerbit-modal')" class="w-full group flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-emerald-500 hover:bg-emerald-50 transition cursor-pointer text-left">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-gray-900">Tambah Penerbit</p>
+                                        <p class="text-xs text-gray-500">Data penerbit baru</p>
+                                    </div>
+                                </div>
+                                <svg class="w-5 h-5 text-gray-400 group-hover:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+
+                        </div>
                     </div>
                 </div>
 
@@ -207,12 +242,14 @@
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black/50 backdrop-blur-sm transition-all">
         <div class="relative p-4 w-full max-w-2xl max-h-full mx-auto mt-10">
             <div class="relative bg-white border border-gray-100 rounded-xl shadow-2xl p-6 md:p-8 text-left">
+                
                 <div class="flex items-center justify-between border-b border-gray-100 pb-5 mb-5">
-                    <h3 class="text-xl font-bold text-gray-800">Buat Buku Baru</h3>
+                    <h3 class="text-xl font-bold text-gray-800">Tambah Stok Buku Baru</h3>
                     <button type="button" onclick="closeModal('create-buku-modal')" class="text-gray-400 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center transition">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
+
                 <form action="{{ route('buku.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="redirect_to" value="dashboard">
@@ -226,11 +263,16 @@
                             <label class="block mb-2 text-sm font-semibold text-gray-700">Pengarang</label>
                             <input type="text" name="pengarang" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nama pengarang" required>
                         </div>
+                        
                         <div class="col-span-2 sm:col-span-1">
                             <label class="block mb-2 text-sm font-semibold text-gray-700">Tahun Terbit</label>
                             <input type="number" name="tahun_terbit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="2024" required>
                         </div>
-                        <div class="hidden sm:block col-span-1"></div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label class="block mb-2 text-sm font-semibold text-gray-700">Jumlah Stok</label>
+                            <input type="number" name="stok" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="0" min="0" required>
+                        </div>
+
                         <div class="col-span-2 sm:col-span-1">
                             <label class="block mb-2 text-sm font-semibold text-gray-700">Penerbit</label>
                             <select name="penerbit_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
@@ -256,7 +298,7 @@
                     </div>
                     <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
                         <button type="button" onclick="closeModal('create-buku-modal')" class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none transition">Batal</button>
-                        <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition shadow-lg shadow-blue-500/30">Simpan Buku</button>
+                        <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition shadow-lg shadow-blue-500/30">Simpan Produk</button>
                     </div>
                 </form>
             </div>
@@ -276,10 +318,9 @@
                 <form action="{{ route('kategori.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="redirect_to" value="dashboard">
-
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-semibold text-gray-700">Nama Kategori</label>
-                        <input type="text" name="nama_kategori" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5" placeholder="Masukkan nama kategori" required>
+                        <input type="text" name="nama_kategori" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5" required>
                     </div>
                     <div class="flex items-center justify-end space-x-3 pt-2">
                         <button type="button" onclick="closeModal('create-kategori-modal')" class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
@@ -303,19 +344,18 @@
                 <form action="{{ route('penerbit.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="redirect_to" value="dashboard">
-
                     <div class="grid gap-4 grid-cols-2 mb-6">
                         <div class="col-span-2">
                             <label class="block mb-2 text-sm font-semibold text-gray-700">Nama Penerbit</label>
-                            <input type="text" name="nama_penerbit" value="{{ old('nama_penerbit') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="Masukkan nama penerbit" required>
+                            <input type="text" name="nama_penerbit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" required>
                         </div>
                         <div class="col-span-2">
                             <label class="block mb-2 text-sm font-semibold text-gray-700">Nomor Telepon</label>
-                            <input type="text" name="telepon" value="{{ old('telepon') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="0812..." required>
+                            <input type="text" name="telepon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" required>
                         </div>
                         <div class="col-span-2">
                             <label class="block mb-2 text-sm font-semibold text-gray-700">Alamat Penerbit</label>
-                            <textarea name="alamat" rows="3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5" placeholder="Alamat lengkap..." required>{{ old('alamat') }}</textarea>
+                            <textarea name="alamat" rows="3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5" required></textarea>
                         </div>
                     </div>
                     <div class="flex items-center justify-end space-x-3 pt-2">

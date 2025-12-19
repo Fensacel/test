@@ -15,14 +15,18 @@ return new class extends Migration
             $table->string('judul_buku');
             $table->string('pengarang');
             $table->string('tahun_terbit');
+            
+            // --- TAMBAHKAN KOLOM STOK DI SINI ---
+            $table->integer('stok')->default(0); 
+            // ------------------------------------
 
-            // BUAT KOLOM FK DULU
+            // Kolom Foreign Key
             $table->unsignedBigInteger('kategori_id');
             $table->unsignedBigInteger('penerbit_id');
 
             $table->timestamps();
 
-            // BARU DEFINISIKAN FOREIGN KEY
+            // Definisi Foreign Key
             $table->foreign('kategori_id')
                   ->references('id')
                   ->on('kategoris')

@@ -12,6 +12,8 @@ class BukuController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        
+        // Eager load relasi agar query lebih efisien
         $query = Buku::with(['penerbit', 'kategori']);
 
         if ($search) {
@@ -19,6 +21,7 @@ class BukuController extends Controller
                 $q->where('judul_buku', 'LIKE', "%{$search}%")
                   ->orWhere('pengarang', 'LIKE', "%{$search}%")
                   ->orWhere('tahun_terbit', 'LIKE', "%{$search}%")
+                  // Pencarian ke tabel relasi (Penerbit & Kategori)
                   ->orWhereHas('penerbit', function($p) use ($search) {
                       $p->where('nama_penerbit', 'LIKE', "%{$search}%");
                   })
@@ -29,6 +32,8 @@ class BukuController extends Controller
         }
 
         $allbuku = $query->latest()->get();
+        
+        // Data untuk dropdown di modal create/edit
         $penerbit = Penerbit::all();
         $kategori = Kategori::all();
 
@@ -44,18 +49,21 @@ class BukuController extends Controller
 
     public function store(Request $request)
     {
+        // VALIDASI INPUT (Tambahkan Stok disini)
         $validatedData = $request->validate([
             'judul_buku' => 'required|max:100',
             'pengarang' => 'required|max:100',
             'tahun_terbit' => 'required|digits:4',
+            'stok' => 'required|integer|min:0', // <--- WAJIB ADA
             'kategori_id' => 'required|exists:kategoris,id',
             'penerbit_id' => 'required|exists:penerbits,id',
         ]);
 
         Buku::create($validatedData);
 
+        // Cek jika request datang dari Dashboard (Akses Cepat)
         if ($request->input('redirect_to') == 'dashboard') {
-            return redirect('/')->with('success', 'Penerbit berhasil ditambahkan dari Dashboard!');
+            return redirect('/')->with('success', 'Buku berhasil ditambahkan dari Dashboard!');
         }
 
         return redirect()->route('buku.index')
@@ -76,10 +84,12 @@ class BukuController extends Controller
 
     public function update(Request $request, Buku $buku)
     {
+        // VALIDASI UPDATE (Tambahkan Stok disini juga)
         $validatedData = $request->validate([
             'judul_buku' => 'required|max:100',
             'pengarang' => 'required|max:100',
             'tahun_terbit' => 'required|digits:4',
+            'stok' => 'required|integer|min:0', // <--- WAJIB ADA
             'kategori_id' => 'required|exists:kategoris,id',
             'penerbit_id' => 'required|exists:penerbits,id',
         ]);
@@ -87,7 +97,7 @@ class BukuController extends Controller
         $buku->update($validatedData);
 
         return redirect()->route('buku.index')
-            ->with('success', 'Buku berhasil diupdate.');
+            ->with('success', 'Buku berhasil diperbarui.');
     }
 
     public function destroy(Buku $buku)
