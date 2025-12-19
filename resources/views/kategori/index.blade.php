@@ -67,7 +67,7 @@
                             <tr class="hover:bg-gray-50 transition duration-150">
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $key + 1 }}</td>
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-100 font-medium">
+                                    <span class="px-3 py-1 rounded-full font-bold">
                                         {{ $r->nama_kategori }}
                                     </span>
                                 </td>
@@ -92,14 +92,19 @@
                                         <form action="{{ route('kategori.destroy', $r->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus kategori: {{ $r->nama_kategori }}?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
-                                                class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition" title="Hapus">
+                                            <button type="button" 
+                                                data-modal-target="delete-modal-{{ $r->id }}" 
+                                                data-modal-toggle="delete-modal-{{ $r->id }}"
+                                                class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition" title="Hapus">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                             </button>
                                         </form>
                                     </div>
 
-                                    {{-- INCLUDE MODAL EDIT & SHOW --}}
+                                    @include('components.delete-modal', [
+                                        'id' => $r->id, 
+                                        'action' => route('kategori.destroy', $r->id)
+                                    ])
                                     @include('kategori.edit')
                                     @include('kategori.show')
                                 </td>
@@ -124,11 +129,11 @@
 
         </main>
 
-        {{-- INCLUDE MODAL CREATE --}}
         @include('kategori.create')
 
         @include('layout.footer')
     
-    </div> <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 </html>
